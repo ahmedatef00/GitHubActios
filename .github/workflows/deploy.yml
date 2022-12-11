@@ -1,12 +1,9 @@
 name: deploy
-
 on:
   push:
     branches:
-      - 'master'
-      - 'main'
-
-
+      - main
+      - master
 
 jobs:
   run-unit-tests:
@@ -30,13 +27,13 @@ jobs:
         run: mvn clean package
 
       - name: Rename the artifact
-        run: cp target/backend-social-network-1.0-SNAPSHOT.jar backend-social-network-${{ github.sha }}.jar
+        run: cp target/GitHubActios-1.0-SNAPSHOT.jar GitHubActios-${{ github.sha }}.jar
 
       - name: Save the artifact
         uses: actions/upload-artifact@master
         with:
-          name: backend-social-network
-          path: backend-social-network-${{ github.sha }}.jar
+          name: GitHubActios
+          path: GitHubActios-${{ github.sha }}.jar
 
   fake-deploy:
     runs-on: self-hosted
@@ -45,7 +42,7 @@ jobs:
       - name: Get the artifact
         uses: actions/download-artifact@master
         with:
-          name: backend-social-network
+          name: GitHubActios
 
       - name: Fake deploy
-        run: ls backend-social-network-*.jar
+        run: ls GitHubActios-*.jar
